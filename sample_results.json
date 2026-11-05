@@ -1,0 +1,2049 @@
+[
+  {
+    "id": "deletion",
+    "name": "Deletion requests are honoured in all systems",
+    "iso": "A.8.10, A.5.34",
+    "gdpr": "Article 17",
+    "verdict": "FAIL",
+    "summary": "Sarah Lin's deletion was marked complete, but her data is still in analytics and the October backup.",
+    "evidence": [
+      "Sarah Lin (u_201) marked deleted but still in: analytics.json, backup_2026_10.json"
+    ],
+    "fixes": [
+      "Delete Sarah Lin (u_201) from analytics and the October backup",
+      "Make the deletion job cover every system, not just the main database"
+    ],
+    "red": "**Violations found:**\n\n- Sarah Lin (u_201) marked deleted but still in: analytics.json, backup_2026_10.json",
+    "blue": "I checked analytics and the backup directly. Sarah Lin (u_201) is still in both, although her request is marked completed on 2026-09-12. The policy says ALL systems, so I **concede**. Michael Ford was correctly removed everywhere.\n\n**Fix:** extend the deletion job to analytics and backups.",
+    "agents": {
+      "red": {
+        "status": "completed",
+        "seconds": 2.8,
+        "tool_calls": 6,
+        "tools_used": [
+          "list_deletion_requests",
+          "read_policy",
+          "search_systems"
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "turns": 7,
+        "finished_at": "2026-11-04T20:25:06",
+        "output": "**Violations found:**\n\n- Sarah Lin (u_201) marked deleted but still in: analytics.json, backup_2026_10.json"
+      },
+      "blue": {
+        "status": "completed",
+        "seconds": 1.6,
+        "tool_calls": 3,
+        "tools_used": [
+          "list_analytics_customers",
+          "list_backup_customers",
+          "read_policy"
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "turns": 4,
+        "finished_at": "2026-11-04T20:25:08",
+        "output": "I checked analytics and the backup directly. Sarah Lin (u_201) is still in both, although her request is marked completed on 2026-09-12. The policy says ALL systems, so I **concede**. Michael Ford was correctly removed everywhere.\n\n**Fix:** extend the deletion job to analytics and backups."
+      },
+      "judge": {
+        "status": "completed",
+        "seconds": 0.4,
+        "tool_calls": 0,
+        "tools_used": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "turns": 1,
+        "finished_at": "2026-11-04T20:25:08",
+        "output": "{\n  \"verdict\": \"FAIL\",\n  \"summary\": \"Sarah Lin's deletion was marked complete, but her data is still in analytics and the October backup.\",\n  \"evidence\": [\n    \"Sarah Lin (u_201) marked deleted but still in: analytics.json, backup_2026_10.json\"\n  ],\n  \"fixes\": [\n    \"Delete Sarah Lin (u_201) from analytics and the October backup\",\n    \"Make the deletion job cover every system, not just the main database\"\n  ]\n}"
+      }
+    },
+    "tool_log": [
+      {
+        "agent": "red",
+        "tool": "read_policy",
+        "input": {},
+        "output": "# AcmeCorp Privacy and Security Policy\n\n1. Deletion: when a customer asks to be deleted, we remove their data from ALL systems within 30 days.\n2. Logs: we never write customer emails, phone numbers or card numbers into application logs.\n3. Retention: we delete customer data 2 years after an account is closed.\n4. Admins: every admin account must use multi-factor authentication (MFA).\n5. Leavers: staff accounts are disabled within 24 hours of someone leaving.\n",
+        "at": "2026-11-04T20:25:04"
+      },
+      {
+        "agent": "red",
+        "tool": "list_deletion_requests",
+        "input": {},
+        "output": [
+          {
+            "user_id": "u_201",
+            "name": "Sarah Lin",
+            "email": "sarah.lin@example.com",
+            "requested_date": "2026-09-10",
+            "status": "completed",
+            "completed_date": "2026-09-12"
+          },
+          {
+            "user_id": "u_202",
+            "name": "Michael Ford",
+            "email": "michael.ford@example.com",
+            "requested_date": "2026-10-04",
+            "status": "completed",
+            "completed_date": "2026-10-05"
+          }
+        ],
+        "at": "2026-11-04T20:25:04"
+      },
+      {
+        "agent": "red",
+        "tool": "search_systems",
+        "input": {
+          "text": "sarah.lin@example.com"
+        },
+        "output": [
+          {
+            "system": "analytics.json",
+            "record": 3,
+            "data": {
+              "id": "u_201",
+              "name": "Sarah Lin",
+              "email": "sarah.lin@example.com",
+              "orders": 7,
+              "segment": "at_risk"
+            }
+          },
+          {
+            "system": "backup_2026_10.json",
+            "record": 3,
+            "data": {
+              "id": "u_201",
+              "name": "Sarah Lin",
+              "email": "sarah.lin@example.com",
+              "status": "closed"
+            }
+          }
+        ],
+        "at": "2026-11-04T20:25:04"
+      },
+      {
+        "agent": "red",
+        "tool": "search_systems",
+        "input": {
+          "text": "u_201"
+        },
+        "output": [
+          {
+            "system": "analytics.json",
+            "record": 3,
+            "data": {
+              "id": "u_201",
+              "name": "Sarah Lin",
+              "email": "sarah.lin@example.com",
+              "orders": 7,
+              "segment": "at_risk"
+            }
+          },
+          {
+            "system": "backup_2026_10.json",
+            "record": 3,
+            "data": {
+              "id": "u_201",
+              "name": "Sarah Lin",
+              "email": "sarah.lin@example.com",
+              "status": "closed"
+            }
+          }
+        ],
+        "at": "2026-11-04T20:25:05"
+      },
+      {
+        "agent": "red",
+        "tool": "search_systems",
+        "input": {
+          "text": "michael.ford@example.com"
+        },
+        "output": [],
+        "at": "2026-11-04T20:25:05"
+      },
+      {
+        "agent": "red",
+        "tool": "search_systems",
+        "input": {
+          "text": "u_202"
+        },
+        "output": [],
+        "at": "2026-11-04T20:25:06"
+      },
+      {
+        "agent": "blue",
+        "tool": "read_policy",
+        "input": {},
+        "output": "# AcmeCorp Privacy and Security Policy\n\n1. Deletion: when a customer asks to be deleted, we remove their data from ALL systems within 30 days.\n2. Logs: we never write customer emails, phone numbers or card numbers into application logs.\n3. Retention: we delete customer data 2 years after an account is closed.\n4. Admins: every admin account must use multi-factor authentication (MFA).\n5. Leavers: staff accounts are disabled within 24 hours of someone leaving.\n",
+        "at": "2026-11-04T20:25:06"
+      },
+      {
+        "agent": "blue",
+        "tool": "list_analytics_customers",
+        "input": {},
+        "output": [
+          {
+            "id": "u_101",
+            "name": "Tom Reed",
+            "email": "tom.reed@example.com",
+            "orders": 12,
+            "segment": "loyal"
+          },
+          {
+            "id": "u_104",
+            "name": "Elena Brooks",
+            "email": "elena.brooks@example.com",
+            "orders": 4,
+            "segment": "regular"
+          },
+          {
+            "id": "u_201",
+            "name": "Sarah Lin",
+            "email": "sarah.lin@example.com",
+            "orders": 7,
+            "segment": "at_risk"
+          },
+          {
+            "id": "u_108",
+            "name": "Grace Turner",
+            "email": "grace.turner@example.com",
+            "orders": 2,
+            "segment": "new"
+          },
+          {
+            "id": "u_110",
+            "name": "Amara Okafor",
+            "email": "amara.okafor@example.com",
+            "orders": 9,
+            "segment": "loyal"
+          },
+          {
+            "id": "u_115",
+            "name": "Noah Bennett",
+            "email": "noah.bennett@example.com",
+            "orders": 3,
+            "segment": "new"
+          },
+          {
+            "id": "u_118",
+            "name": "Zara Ahmed",
+            "email": "zara.ahmed@example.com",
+            "orders": 6,
+            "segment": "regular"
+          },
+          {
+            "id": "u_119",
+            "name": "Lucas Evans",
+            "email": "lucas.evans@example.com",
+            "orders": 1,
+            "segment": "new"
+          }
+        ],
+        "at": "2026-11-04T20:25:07"
+      },
+      {
+        "agent": "blue",
+        "tool": "list_backup_customers",
+        "input": {},
+        "output": [
+          {
+            "id": "u_101",
+            "name": "Tom Reed",
+            "email": "tom.reed@example.com",
+            "status": "active"
+          },
+          {
+            "id": "u_103",
+            "name": "Marcus Chen",
+            "email": "marcus.chen@example.com",
+            "status": "closed"
+          },
+          {
+            "id": "u_201",
+            "name": "Sarah Lin",
+            "email": "sarah.lin@example.com",
+            "status": "closed"
+          },
+          {
+            "id": "u_106",
+            "name": "Nina Patel",
+            "email": "nina.patel@example.com",
+            "status": "active"
+          },
+          {
+            "id": "u_112",
+            "name": "Sofia Rossi",
+            "email": "sofia.rossi@example.com",
+            "status": "closed"
+          },
+          {
+            "id": "u_114",
+            "name": "Maya Singh",
+            "email": "maya.singh@example.com",
+            "status": "active"
+          },
+          {
+            "id": "u_117",
+            "name": "Theo Campbell",
+            "email": "theo.campbell@example.com",
+            "status": "active"
+          },
+          {
+            "id": "u_120",
+            "name": "Ruby Foster",
+            "email": "ruby.foster@example.com",
+            "status": "closed"
+          }
+        ],
+        "at": "2026-11-04T20:25:07"
+      }
+    ],
+    "audit_date": "2026-11-04",
+    "checked_at": "2026-11-04T20:25:08",
+    "sample": true
+  },
+  {
+    "id": "logs",
+    "name": "No customer personal data in application logs",
+    "iso": "A.8.11, A.8.15",
+    "gdpr": "Article 5(1)(c)",
+    "verdict": "FAIL",
+    "summary": "Two customer email addresses were written into the application logs.",
+    "evidence": [
+      "app.log line 7: tom.reed@example.com",
+      "app.log line 29: priya.shah@example.com"
+    ],
+    "fixes": [
+      "Remove the debug lines that print emails; log customer IDs only",
+      "Add automatic email masking to the logger"
+    ],
+    "red": "**Violations found:**\n\n- app.log line 7: tom.reed@example.com\n- app.log line 29: priya.shah@example.com",
+    "blue": "Both lines are DEBUG messages that print full customer email addresses. The policy forbids emails in logs with no exception for debug output, so I **concede** both.\n\n**Fix:** log the customer ID instead and mask emails in the logger.",
+    "agents": {
+      "red": {
+        "status": "completed",
+        "seconds": 1.2,
+        "tool_calls": 2,
+        "tools_used": [
+          "read_logs",
+          "read_policy"
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "turns": 3,
+        "finished_at": "2026-11-04T20:25:09",
+        "output": "**Violations found:**\n\n- app.log line 7: tom.reed@example.com\n- app.log line 29: priya.shah@example.com"
+      },
+      "blue": {
+        "status": "completed",
+        "seconds": 1.2,
+        "tool_calls": 2,
+        "tools_used": [
+          "read_logs",
+          "read_policy"
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "turns": 3,
+        "finished_at": "2026-11-04T20:25:10",
+        "output": "Both lines are DEBUG messages that print full customer email addresses. The policy forbids emails in logs with no exception for debug output, so I **concede** both.\n\n**Fix:** log the customer ID instead and mask emails in the logger."
+      },
+      "judge": {
+        "status": "completed",
+        "seconds": 0.4,
+        "tool_calls": 0,
+        "tools_used": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "turns": 1,
+        "finished_at": "2026-11-04T20:25:11",
+        "output": "{\n  \"verdict\": \"FAIL\",\n  \"summary\": \"Two customer email addresses were written into the application logs.\",\n  \"evidence\": [\n    \"app.log line 7: tom.reed@example.com\",\n    \"app.log line 29: priya.shah@example.com\"\n  ],\n  \"fixes\": [\n    \"Remove the debug lines that print emails; log customer IDs only\",\n    \"Add automatic email masking to the logger\"\n  ]\n}"
+      }
+    },
+    "tool_log": [
+      {
+        "agent": "red",
+        "tool": "read_policy",
+        "input": {},
+        "output": "# AcmeCorp Privacy and Security Policy\n\n1. Deletion: when a customer asks to be deleted, we remove their data from ALL systems within 30 days.\n2. Logs: we never write customer emails, phone numbers or card numbers into application logs.\n3. Retention: we delete customer data 2 years after an account is closed.\n4. Admins: every admin account must use multi-factor authentication (MFA).\n5. Leavers: staff accounts are disabled within 24 hours of someone leaving.\n",
+        "at": "2026-11-04T20:25:08"
+      },
+      {
+        "agent": "red",
+        "tool": "read_logs",
+        "input": {
+          "limit": 200
+        },
+        "output": [
+          {
+            "line": 1,
+            "text": "2026-10-26 08:02:11 INFO  application started env=production"
+          },
+          {
+            "line": 2,
+            "text": "2026-10-26 08:17:42 INFO  deployment completed version=2.8.1"
+          },
+          {
+            "line": 3,
+            "text": "2026-10-26 08:33:09 INFO  login successful user=u_101"
+          },
+          {
+            "line": 4,
+            "text": "2026-10-26 09:04:51 INFO  order created id=5601 user=u_104"
+          },
+          {
+            "line": 5,
+            "text": "2026-10-26 09:18:26 WARN  payment retry id=5602 user=u_106"
+          },
+          {
+            "line": 6,
+            "text": "2026-10-26 10:02:11 INFO  order created id=5603 user=u_101"
+          },
+          {
+            "line": 7,
+            "text": "2026-10-26 10:08:57 DEBUG sending receipt to tom.reed@example.com"
+          },
+          {
+            "line": 8,
+            "text": "2026-10-26 11:12:09 INFO  refund issued id=R-901 user=u_109"
+          },
+          {
+            "line": 9,
+            "text": "2026-10-26 12:06:51 INFO  profile updated user=u_108"
+          },
+          {
+            "line": 10,
+            "text": "2026-10-26 15:36:54 INFO  order created id=5604 user=u_110"
+          },
+          {
+            "line": 11,
+            "text": "2026-10-27 08:11:03 INFO  scheduled job started job=daily-reconcile"
+          },
+          {
+            "line": 12,
+            "text": "2026-10-27 08:45:19 INFO  login successful user=u_102"
+          },
+          {
+            "line": 13,
+            "text": "2026-10-27 09:20:44 ERROR payment gateway timeout user=u_113"
+          },
+          {
+            "line": 14,
+            "text": "2026-10-27 10:14:07 INFO  order created id=5605 user=u_115"
+          },
+          {
+            "line": 15,
+            "text": "2026-10-27 11:07:32 WARN  address validation failed user=u_118"
+          },
+          {
+            "line": 16,
+            "text": "2026-10-27 13:40:55 INFO  subscription renewed user=u_114"
+          },
+          {
+            "line": 17,
+            "text": "2026-10-27 14:22:18 DEBUG cache miss user=u_101"
+          },
+          {
+            "line": 18,
+            "text": "2026-10-27 16:51:06 INFO  export completed job=EXP-81 user=u_106"
+          },
+          {
+            "line": 19,
+            "text": "2026-10-28 08:05:10 INFO  application health check status=ok"
+          },
+          {
+            "line": 20,
+            "text": "2026-10-28 08:39:27 INFO  login successful user=u_111"
+          },
+          {
+            "line": 21,
+            "text": "2026-10-28 09:12:49 INFO  order created id=5606 user=u_104"
+          },
+          {
+            "line": 22,
+            "text": "2026-10-28 09:44:15 WARN  failed login user=u_105"
+          },
+          {
+            "line": 23,
+            "text": "2026-10-28 10:30:02 INFO  account closed user=u_120"
+          },
+          {
+            "line": 24,
+            "text": "2026-10-28 11:16:38 INFO  webhook delivered event=invoice.paid user=u_110"
+          },
+          {
+            "line": 25,
+            "text": "2026-10-28 12:48:53 ERROR background task failed job=thumbnail-refresh"
+          },
+          {
+            "line": 26,
+            "text": "2026-10-28 14:03:29 INFO  order created id=5607 user=u_116"
+          },
+          {
+            "line": 27,
+            "text": "2026-10-28 15:27:41 INFO  support ticket opened ticket=SUP-441 user=u_108"
+          },
+          {
+            "line": 28,
+            "text": "2026-10-29 08:16:20 INFO  login successful user=u_119"
+          },
+          {
+            "line": 29,
+            "text": "2026-10-29 09:02:14 DEBUG sending password reset to priya.shah@example.com"
+          },
+          {
+            "line": 30,
+            "text": "2026-10-29 09:33:58 INFO  order created id=5608 user=u_102"
+          },
+          {
+            "line": 31,
+            "text": "2026-10-29 10:41:36 WARN  payment retry id=5609 user=u_117"
+          },
+          {
+            "line": 32,
+            "text": "2026-10-29 11:28:04 INFO  subscription renewed user=u_115"
+          },
+          {
+            "line": 33,
+            "text": "2026-10-29 13:07:52 INFO  data export completed job=EXP-82 user=u_114"
+          },
+          {
+            "line": 34,
+            "text": "2026-10-29 14:19:33 ERROR webhook delivery failed event=customer.updated user=u_118"
+          },
+          {
+            "line": 35,
+            "text": "2026-10-29 16:02:47 INFO  order created id=5610 user=u_101"
+          },
+          {
+            "line": 36,
+            "text": "2026-10-30 08:09:18 INFO  scheduled job started job=weekly-metrics"
+          },
+          {
+            "line": 37,
+            "text": "2026-10-30 08:52:41 INFO  login successful user=u_113"
+          },
+          {
+            "line": 38,
+            "text": "2026-10-30 09:16:05 INFO  order created id=5611 user=u_119"
+          },
+          {
+            "line": 39,
+            "text": "2026-10-30 10:03:27 WARN  rate limit reached user=u_110"
+          },
+          {
+            "line": 40,
+            "text": "2026-10-30 11:45:39 INFO  refund issued id=R-902 user=u_104"
+          },
+          {
+            "line": 41,
+            "text": "2026-10-30 12:20:14 INFO  profile updated user=u_116"
+          },
+          {
+            "line": 42,
+            "text": "2026-10-30 14:58:02 ERROR database connection pool warning"
+          },
+          {
+            "line": 43,
+            "text": "2026-10-30 16:31:50 INFO  order created id=5612 user=u_118"
+          },
+          {
+            "line": 44,
+            "text": "2026-10-31 08:24:11 INFO  login successful user=u_106"
+          },
+          {
+            "line": 45,
+            "text": "2026-10-31 09:07:46 INFO  order created id=5613 user=u_108"
+          },
+          {
+            "line": 46,
+            "text": "2026-10-31 10:42:03 WARN  failed login user=u_112"
+          },
+          {
+            "line": 47,
+            "text": "2026-10-31 11:19:28 INFO  subscription renewed user=u_111"
+          },
+          {
+            "line": 48,
+            "text": "2026-10-31 13:55:17 INFO  support ticket resolved ticket=SUP-441 user=u_108"
+          },
+          {
+            "line": 49,
+            "text": "2026-10-31 15:08:39 INFO  order created id=5614 user=u_115"
+          },
+          {
+            "line": 50,
+            "text": "2026-11-01 08:14:03 INFO  application health check status=ok"
+          },
+          {
+            "line": 51,
+            "text": "2026-11-01 09:03:44 INFO  login successful user=u_102"
+          },
+          {
+            "line": 52,
+            "text": "2026-11-01 10:02:11 INFO  order created id=5615 user=u_106"
+          },
+          {
+            "line": 53,
+            "text": "2026-11-01 11:45:33 WARN  address validation failed user=u_110"
+          },
+          {
+            "line": 54,
+            "text": "2026-11-01 12:38:20 INFO  logout user=u_102"
+          },
+          {
+            "line": 55,
+            "text": "2026-11-01 13:02:05 ERROR payment gateway timeout user=u_113"
+          },
+          {
+            "line": 56,
+            "text": "2026-11-01 14:27:39 INFO  account closed user=u_112"
+          },
+          {
+            "line": 57,
+            "text": "2026-11-01 16:08:31 INFO  session expired user=u_108"
+          }
+        ],
+        "at": "2026-11-04T20:25:09"
+      },
+      {
+        "agent": "blue",
+        "tool": "read_policy",
+        "input": {},
+        "output": "# AcmeCorp Privacy and Security Policy\n\n1. Deletion: when a customer asks to be deleted, we remove their data from ALL systems within 30 days.\n2. Logs: we never write customer emails, phone numbers or card numbers into application logs.\n3. Retention: we delete customer data 2 years after an account is closed.\n4. Admins: every admin account must use multi-factor authentication (MFA).\n5. Leavers: staff accounts are disabled within 24 hours of someone leaving.\n",
+        "at": "2026-11-04T20:25:10"
+      },
+      {
+        "agent": "blue",
+        "tool": "read_logs",
+        "input": {
+          "limit": 200
+        },
+        "output": [
+          {
+            "line": 1,
+            "text": "2026-10-26 08:02:11 INFO  application started env=production"
+          },
+          {
+            "line": 2,
+            "text": "2026-10-26 08:17:42 INFO  deployment completed version=2.8.1"
+          },
+          {
+            "line": 3,
+            "text": "2026-10-26 08:33:09 INFO  login successful user=u_101"
+          },
+          {
+            "line": 4,
+            "text": "2026-10-26 09:04:51 INFO  order created id=5601 user=u_104"
+          },
+          {
+            "line": 5,
+            "text": "2026-10-26 09:18:26 WARN  payment retry id=5602 user=u_106"
+          },
+          {
+            "line": 6,
+            "text": "2026-10-26 10:02:11 INFO  order created id=5603 user=u_101"
+          },
+          {
+            "line": 7,
+            "text": "2026-10-26 10:08:57 DEBUG sending receipt to tom.reed@example.com"
+          },
+          {
+            "line": 8,
+            "text": "2026-10-26 11:12:09 INFO  refund issued id=R-901 user=u_109"
+          },
+          {
+            "line": 9,
+            "text": "2026-10-26 12:06:51 INFO  profile updated user=u_108"
+          },
+          {
+            "line": 10,
+            "text": "2026-10-26 15:36:54 INFO  order created id=5604 user=u_110"
+          },
+          {
+            "line": 11,
+            "text": "2026-10-27 08:11:03 INFO  scheduled job started job=daily-reconcile"
+          },
+          {
+            "line": 12,
+            "text": "2026-10-27 08:45:19 INFO  login successful user=u_102"
+          },
+          {
+            "line": 13,
+            "text": "2026-10-27 09:20:44 ERROR payment gateway timeout user=u_113"
+          },
+          {
+            "line": 14,
+            "text": "2026-10-27 10:14:07 INFO  order created id=5605 user=u_115"
+          },
+          {
+            "line": 15,
+            "text": "2026-10-27 11:07:32 WARN  address validation failed user=u_118"
+          },
+          {
+            "line": 16,
+            "text": "2026-10-27 13:40:55 INFO  subscription renewed user=u_114"
+          },
+          {
+            "line": 17,
+            "text": "2026-10-27 14:22:18 DEBUG cache miss user=u_101"
+          },
+          {
+            "line": 18,
+            "text": "2026-10-27 16:51:06 INFO  export completed job=EXP-81 user=u_106"
+          },
+          {
+            "line": 19,
+            "text": "2026-10-28 08:05:10 INFO  application health check status=ok"
+          },
+          {
+            "line": 20,
+            "text": "2026-10-28 08:39:27 INFO  login successful user=u_111"
+          },
+          {
+            "line": 21,
+            "text": "2026-10-28 09:12:49 INFO  order created id=5606 user=u_104"
+          },
+          {
+            "line": 22,
+            "text": "2026-10-28 09:44:15 WARN  failed login user=u_105"
+          },
+          {
+            "line": 23,
+            "text": "2026-10-28 10:30:02 INFO  account closed user=u_120"
+          },
+          {
+            "line": 24,
+            "text": "2026-10-28 11:16:38 INFO  webhook delivered event=invoice.paid user=u_110"
+          },
+          {
+            "line": 25,
+            "text": "2026-10-28 12:48:53 ERROR background task failed job=thumbnail-refresh"
+          },
+          {
+            "line": 26,
+            "text": "2026-10-28 14:03:29 INFO  order created id=5607 user=u_116"
+          },
+          {
+            "line": 27,
+            "text": "2026-10-28 15:27:41 INFO  support ticket opened ticket=SUP-441 user=u_108"
+          },
+          {
+            "line": 28,
+            "text": "2026-10-29 08:16:20 INFO  login successful user=u_119"
+          },
+          {
+            "line": 29,
+            "text": "2026-10-29 09:02:14 DEBUG sending password reset to priya.shah@example.com"
+          },
+          {
+            "line": 30,
+            "text": "2026-10-29 09:33:58 INFO  order created id=5608 user=u_102"
+          },
+          {
+            "line": 31,
+            "text": "2026-10-29 10:41:36 WARN  payment retry id=5609 user=u_117"
+          },
+          {
+            "line": 32,
+            "text": "2026-10-29 11:28:04 INFO  subscription renewed user=u_115"
+          },
+          {
+            "line": 33,
+            "text": "2026-10-29 13:07:52 INFO  data export completed job=EXP-82 user=u_114"
+          },
+          {
+            "line": 34,
+            "text": "2026-10-29 14:19:33 ERROR webhook delivery failed event=customer.updated user=u_118"
+          },
+          {
+            "line": 35,
+            "text": "2026-10-29 16:02:47 INFO  order created id=5610 user=u_101"
+          },
+          {
+            "line": 36,
+            "text": "2026-10-30 08:09:18 INFO  scheduled job started job=weekly-metrics"
+          },
+          {
+            "line": 37,
+            "text": "2026-10-30 08:52:41 INFO  login successful user=u_113"
+          },
+          {
+            "line": 38,
+            "text": "2026-10-30 09:16:05 INFO  order created id=5611 user=u_119"
+          },
+          {
+            "line": 39,
+            "text": "2026-10-30 10:03:27 WARN  rate limit reached user=u_110"
+          },
+          {
+            "line": 40,
+            "text": "2026-10-30 11:45:39 INFO  refund issued id=R-902 user=u_104"
+          },
+          {
+            "line": 41,
+            "text": "2026-10-30 12:20:14 INFO  profile updated user=u_116"
+          },
+          {
+            "line": 42,
+            "text": "2026-10-30 14:58:02 ERROR database connection pool warning"
+          },
+          {
+            "line": 43,
+            "text": "2026-10-30 16:31:50 INFO  order created id=5612 user=u_118"
+          },
+          {
+            "line": 44,
+            "text": "2026-10-31 08:24:11 INFO  login successful user=u_106"
+          },
+          {
+            "line": 45,
+            "text": "2026-10-31 09:07:46 INFO  order created id=5613 user=u_108"
+          },
+          {
+            "line": 46,
+            "text": "2026-10-31 10:42:03 WARN  failed login user=u_112"
+          },
+          {
+            "line": 47,
+            "text": "2026-10-31 11:19:28 INFO  subscription renewed user=u_111"
+          },
+          {
+            "line": 48,
+            "text": "2026-10-31 13:55:17 INFO  support ticket resolved ticket=SUP-441 user=u_108"
+          },
+          {
+            "line": 49,
+            "text": "2026-10-31 15:08:39 INFO  order created id=5614 user=u_115"
+          },
+          {
+            "line": 50,
+            "text": "2026-11-01 08:14:03 INFO  application health check status=ok"
+          },
+          {
+            "line": 51,
+            "text": "2026-11-01 09:03:44 INFO  login successful user=u_102"
+          },
+          {
+            "line": 52,
+            "text": "2026-11-01 10:02:11 INFO  order created id=5615 user=u_106"
+          },
+          {
+            "line": 53,
+            "text": "2026-11-01 11:45:33 WARN  address validation failed user=u_110"
+          },
+          {
+            "line": 54,
+            "text": "2026-11-01 12:38:20 INFO  logout user=u_102"
+          },
+          {
+            "line": 55,
+            "text": "2026-11-01 13:02:05 ERROR payment gateway timeout user=u_113"
+          },
+          {
+            "line": 56,
+            "text": "2026-11-01 14:27:39 INFO  account closed user=u_112"
+          },
+          {
+            "line": 57,
+            "text": "2026-11-01 16:08:31 INFO  session expired user=u_108"
+          }
+        ],
+        "at": "2026-11-04T20:25:10"
+      }
+    ],
+    "audit_date": "2026-11-04",
+    "checked_at": "2026-11-04T20:25:11",
+    "sample": true
+  },
+  {
+    "id": "retention",
+    "name": "Customer data deleted 2 years after account closure",
+    "iso": "A.8.10, A.5.34",
+    "gdpr": "Article 5(1)(e)",
+    "verdict": "FAIL",
+    "summary": "Three customers who closed their accounts over two years ago are still stored.",
+    "evidence": [
+      "Marcus Chen (u_103) closed 2022-03-14, older than 2 years",
+      "David Kim (u_105) closed 2023-08-21, older than 2 years",
+      "Oliver Grant (u_107) closed 2024-01-09, older than 2 years"
+    ],
+    "fixes": [
+      "Delete Marcus Chen, David Kim and Oliver Grant",
+      "Schedule a monthly job that deletes accounts closed over 2 years ago"
+    ],
+    "red": "**Violations found:**\n\n- Marcus Chen (u_103) closed 2022-03-14, older than 2 years\n- David Kim (u_105) closed 2023-08-21, older than 2 years\n- Oliver Grant (u_107) closed 2024-01-09, older than 2 years",
+    "blue": "I confirmed all three records are still in the customer database, with closing dates before 2024-11-04. No legal hold or exception is recorded. I **concede**. The recently closed accounts (Leo, Sofia, Ruby) are within the 2-year period and are fine.",
+    "agents": {
+      "red": {
+        "status": "completed",
+        "seconds": 1.6,
+        "tool_calls": 3,
+        "tools_used": [
+          "list_backup_customers",
+          "list_closed_accounts",
+          "read_policy"
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "turns": 4,
+        "finished_at": "2026-11-04T20:25:12",
+        "output": "**Violations found:**\n\n- Marcus Chen (u_103) closed 2022-03-14, older than 2 years\n- David Kim (u_105) closed 2023-08-21, older than 2 years\n- Oliver Grant (u_107) closed 2024-01-09, older than 2 years"
+      },
+      "blue": {
+        "status": "completed",
+        "seconds": 1.2,
+        "tool_calls": 2,
+        "tools_used": [
+          "list_customers",
+          "read_policy"
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "turns": 3,
+        "finished_at": "2026-11-04T20:25:14",
+        "output": "I confirmed all three records are still in the customer database, with closing dates before 2024-11-04. No legal hold or exception is recorded. I **concede**. The recently closed accounts (Leo, Sofia, Ruby) are within the 2-year period and are fine."
+      },
+      "judge": {
+        "status": "completed",
+        "seconds": 0.4,
+        "tool_calls": 0,
+        "tools_used": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "turns": 1,
+        "finished_at": "2026-11-04T20:25:14",
+        "output": "{\n  \"verdict\": \"FAIL\",\n  \"summary\": \"Three customers who closed their accounts over two years ago are still stored.\",\n  \"evidence\": [\n    \"Marcus Chen (u_103) closed 2022-03-14, older than 2 years\",\n    \"David Kim (u_105) closed 2023-08-21, older than 2 years\",\n    \"Oliver Grant (u_107) closed 2024-01-09, older than 2 years\"\n  ],\n  \"fixes\": [\n    \"Delete Marcus Chen, David Kim and Oliver Grant\",\n    \"Schedule a monthly job that deletes accounts closed over 2 years ago\"\n  ]\n}"
+      }
+    },
+    "tool_log": [
+      {
+        "agent": "red",
+        "tool": "read_policy",
+        "input": {},
+        "output": "# AcmeCorp Privacy and Security Policy\n\n1. Deletion: when a customer asks to be deleted, we remove their data from ALL systems within 30 days.\n2. Logs: we never write customer emails, phone numbers or card numbers into application logs.\n3. Retention: we delete customer data 2 years after an account is closed.\n4. Admins: every admin account must use multi-factor authentication (MFA).\n5. Leavers: staff accounts are disabled within 24 hours of someone leaving.\n",
+        "at": "2026-11-04T20:25:11"
+      },
+      {
+        "agent": "red",
+        "tool": "list_closed_accounts",
+        "input": {},
+        "output": [
+          {
+            "id": "u_103",
+            "name": "Marcus Chen",
+            "email": "marcus.chen@example.com",
+            "status": "closed",
+            "closed_date": "2022-03-14"
+          },
+          {
+            "id": "u_105",
+            "name": "David Kim",
+            "email": "david.kim@example.com",
+            "status": "closed",
+            "closed_date": "2023-08-21"
+          },
+          {
+            "id": "u_107",
+            "name": "Oliver Grant",
+            "email": "oliver.grant@example.com",
+            "status": "closed",
+            "closed_date": "2024-01-09"
+          },
+          {
+            "id": "u_109",
+            "name": "Leo Martinez",
+            "email": "leo.martinez@example.com",
+            "status": "closed",
+            "closed_date": "2026-08-17"
+          },
+          {
+            "id": "u_112",
+            "name": "Sofia Rossi",
+            "email": "sofia.rossi@example.com",
+            "status": "closed",
+            "closed_date": "2026-10-02"
+          },
+          {
+            "id": "u_120",
+            "name": "Ruby Foster",
+            "email": "ruby.foster@example.com",
+            "status": "closed",
+            "closed_date": "2026-10-28"
+          }
+        ],
+        "at": "2026-11-04T20:25:12"
+      },
+      {
+        "agent": "red",
+        "tool": "list_backup_customers",
+        "input": {},
+        "output": [
+          {
+            "id": "u_101",
+            "name": "Tom Reed",
+            "email": "tom.reed@example.com",
+            "status": "active"
+          },
+          {
+            "id": "u_103",
+            "name": "Marcus Chen",
+            "email": "marcus.chen@example.com",
+            "status": "closed"
+          },
+          {
+            "id": "u_201",
+            "name": "Sarah Lin",
+            "email": "sarah.lin@example.com",
+            "status": "closed"
+          },
+          {
+            "id": "u_106",
+            "name": "Nina Patel",
+            "email": "nina.patel@example.com",
+            "status": "active"
+          },
+          {
+            "id": "u_112",
+            "name": "Sofia Rossi",
+            "email": "sofia.rossi@example.com",
+            "status": "closed"
+          },
+          {
+            "id": "u_114",
+            "name": "Maya Singh",
+            "email": "maya.singh@example.com",
+            "status": "active"
+          },
+          {
+            "id": "u_117",
+            "name": "Theo Campbell",
+            "email": "theo.campbell@example.com",
+            "status": "active"
+          },
+          {
+            "id": "u_120",
+            "name": "Ruby Foster",
+            "email": "ruby.foster@example.com",
+            "status": "closed"
+          }
+        ],
+        "at": "2026-11-04T20:25:12"
+      },
+      {
+        "agent": "blue",
+        "tool": "read_policy",
+        "input": {},
+        "output": "# AcmeCorp Privacy and Security Policy\n\n1. Deletion: when a customer asks to be deleted, we remove their data from ALL systems within 30 days.\n2. Logs: we never write customer emails, phone numbers or card numbers into application logs.\n3. Retention: we delete customer data 2 years after an account is closed.\n4. Admins: every admin account must use multi-factor authentication (MFA).\n5. Leavers: staff accounts are disabled within 24 hours of someone leaving.\n",
+        "at": "2026-11-04T20:25:13"
+      },
+      {
+        "agent": "blue",
+        "tool": "list_customers",
+        "input": {},
+        "output": [
+          {
+            "id": "u_101",
+            "name": "Tom Reed",
+            "email": "tom.reed@example.com",
+            "status": "active",
+            "closed_date": ""
+          },
+          {
+            "id": "u_102",
+            "name": "Priya Shah",
+            "email": "priya.shah@example.com",
+            "status": "active",
+            "closed_date": ""
+          },
+          {
+            "id": "u_103",
+            "name": "Marcus Chen",
+            "email": "marcus.chen@example.com",
+            "status": "closed",
+            "closed_date": "2022-03-14"
+          },
+          {
+            "id": "u_104",
+            "name": "Elena Brooks",
+            "email": "elena.brooks@example.com",
+            "status": "active",
+            "closed_date": ""
+          },
+          {
+            "id": "u_105",
+            "name": "David Kim",
+            "email": "david.kim@example.com",
+            "status": "closed",
+            "closed_date": "2023-08-21"
+          },
+          {
+            "id": "u_106",
+            "name": "Nina Patel",
+            "email": "nina.patel@example.com",
+            "status": "active",
+            "closed_date": ""
+          },
+          {
+            "id": "u_107",
+            "name": "Oliver Grant",
+            "email": "oliver.grant@example.com",
+            "status": "closed",
+            "closed_date": "2024-01-09"
+          },
+          {
+            "id": "u_108",
+            "name": "Grace Turner",
+            "email": "grace.turner@example.com",
+            "status": "active",
+            "closed_date": ""
+          },
+          {
+            "id": "u_109",
+            "name": "Leo Martinez",
+            "email": "leo.martinez@example.com",
+            "status": "closed",
+            "closed_date": "2026-08-17"
+          },
+          {
+            "id": "u_110",
+            "name": "Amara Okafor",
+            "email": "amara.okafor@example.com",
+            "status": "active",
+            "closed_date": ""
+          },
+          {
+            "id": "u_111",
+            "name": "Jack Wilson",
+            "email": "jack.wilson@example.com",
+            "status": "active",
+            "closed_date": ""
+          },
+          {
+            "id": "u_112",
+            "name": "Sofia Rossi",
+            "email": "sofia.rossi@example.com",
+            "status": "closed",
+            "closed_date": "2026-10-02"
+          },
+          {
+            "id": "u_113",
+            "name": "Ethan Price",
+            "email": "ethan.price@example.com",
+            "status": "active",
+            "closed_date": ""
+          },
+          {
+            "id": "u_114",
+            "name": "Maya Singh",
+            "email": "maya.singh@example.com",
+            "status": "active",
+            "closed_date": ""
+          },
+          {
+            "id": "u_115",
+            "name": "Noah Bennett",
+            "email": "noah.bennett@example.com",
+            "status": "active",
+            "closed_date": ""
+          },
+          {
+            "id": "u_116",
+            "name": "Isla Morgan",
+            "email": "isla.morgan@example.com",
+            "status": "active",
+            "closed_date": ""
+          },
+          {
+            "id": "u_117",
+            "name": "Theo Campbell",
+            "email": "theo.campbell@example.com",
+            "status": "active",
+            "closed_date": ""
+          },
+          {
+            "id": "u_118",
+            "name": "Zara Ahmed",
+            "email": "zara.ahmed@example.com",
+            "status": "active",
+            "closed_date": ""
+          },
+          {
+            "id": "u_119",
+            "name": "Lucas Evans",
+            "email": "lucas.evans@example.com",
+            "status": "active",
+            "closed_date": ""
+          },
+          {
+            "id": "u_120",
+            "name": "Ruby Foster",
+            "email": "ruby.foster@example.com",
+            "status": "closed",
+            "closed_date": "2026-10-28"
+          }
+        ],
+        "at": "2026-11-04T20:25:13"
+      }
+    ],
+    "audit_date": "2026-11-04",
+    "checked_at": "2026-11-04T20:25:14",
+    "sample": true
+  },
+  {
+    "id": "admin_mfa",
+    "name": "Every admin account uses MFA",
+    "iso": "A.8.2, A.8.5",
+    "gdpr": "-",
+    "verdict": "FAIL",
+    "summary": "One admin account (Ben) can sign in without multi-factor authentication.",
+    "evidence": [
+      "ben@acme.example.com is an admin without MFA"
+    ],
+    "fixes": [
+      "Enforce MFA on ben@acme.example.com today",
+      "Block admin sign-in without MFA via a conditional access policy"
+    ],
+    "red": "**Violations found:**\n\n- ben@acme.example.com is an admin without MFA",
+    "blue": "Ben is an active admin with MFA off and signed in on 2026-11-02, so I **concede**. Chloe also has MFA off, but she is staff, not admin, so she is outside this rule.",
+    "agents": {
+      "red": {
+        "status": "completed",
+        "seconds": 1.2,
+        "tool_calls": 2,
+        "tools_used": [
+          "list_staff_accounts",
+          "read_policy"
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "turns": 3,
+        "finished_at": "2026-11-04T20:25:15",
+        "output": "**Violations found:**\n\n- ben@acme.example.com is an admin without MFA"
+      },
+      "blue": {
+        "status": "completed",
+        "seconds": 1.2,
+        "tool_calls": 2,
+        "tools_used": [
+          "list_staff_accounts",
+          "read_policy"
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "turns": 3,
+        "finished_at": "2026-11-04T20:25:16",
+        "output": "Ben is an active admin with MFA off and signed in on 2026-11-02, so I **concede**. Chloe also has MFA off, but she is staff, not admin, so she is outside this rule."
+      },
+      "judge": {
+        "status": "completed",
+        "seconds": 0.4,
+        "tool_calls": 0,
+        "tools_used": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "turns": 1,
+        "finished_at": "2026-11-04T20:25:17",
+        "output": "{\n  \"verdict\": \"FAIL\",\n  \"summary\": \"One admin account (Ben) can sign in without multi-factor authentication.\",\n  \"evidence\": [\n    \"ben@acme.example.com is an admin without MFA\"\n  ],\n  \"fixes\": [\n    \"Enforce MFA on ben@acme.example.com today\",\n    \"Block admin sign-in without MFA via a conditional access policy\"\n  ]\n}"
+      }
+    },
+    "tool_log": [
+      {
+        "agent": "red",
+        "tool": "read_policy",
+        "input": {},
+        "output": "# AcmeCorp Privacy and Security Policy\n\n1. Deletion: when a customer asks to be deleted, we remove their data from ALL systems within 30 days.\n2. Logs: we never write customer emails, phone numbers or card numbers into application logs.\n3. Retention: we delete customer data 2 years after an account is closed.\n4. Admins: every admin account must use multi-factor authentication (MFA).\n5. Leavers: staff accounts are disabled within 24 hours of someone leaving.\n",
+        "at": "2026-11-04T20:25:14"
+      },
+      {
+        "agent": "red",
+        "tool": "list_staff_accounts",
+        "input": {},
+        "output": [
+          {
+            "email": "amy@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-03",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "ben@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": false,
+            "last_sign_in": "2026-11-02",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "chloe@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": false,
+            "last_sign_in": "2026-11-01",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "daniel@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-03",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "eric@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-29",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "fatima@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-14",
+            "disabled": true,
+            "disabled_date": "2026-10-15"
+          },
+          {
+            "email": "george@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-01",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "hana@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-02",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "isaac@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-01",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "julia@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-30",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "kai@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-03",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "lena@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-28",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "miles@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-02",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "nora@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-01",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "owen@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-27",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "piper@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-03",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "quinn@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-31",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "ravi@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-02",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "sara@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-30",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "tyler@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-01",
+            "disabled": false,
+            "disabled_date": null
+          }
+        ],
+        "at": "2026-11-04T20:25:15"
+      },
+      {
+        "agent": "blue",
+        "tool": "read_policy",
+        "input": {},
+        "output": "# AcmeCorp Privacy and Security Policy\n\n1. Deletion: when a customer asks to be deleted, we remove their data from ALL systems within 30 days.\n2. Logs: we never write customer emails, phone numbers or card numbers into application logs.\n3. Retention: we delete customer data 2 years after an account is closed.\n4. Admins: every admin account must use multi-factor authentication (MFA).\n5. Leavers: staff accounts are disabled within 24 hours of someone leaving.\n",
+        "at": "2026-11-04T20:25:16"
+      },
+      {
+        "agent": "blue",
+        "tool": "list_staff_accounts",
+        "input": {},
+        "output": [
+          {
+            "email": "amy@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-03",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "ben@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": false,
+            "last_sign_in": "2026-11-02",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "chloe@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": false,
+            "last_sign_in": "2026-11-01",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "daniel@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-03",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "eric@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-29",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "fatima@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-14",
+            "disabled": true,
+            "disabled_date": "2026-10-15"
+          },
+          {
+            "email": "george@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-01",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "hana@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-02",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "isaac@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-01",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "julia@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-30",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "kai@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-03",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "lena@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-28",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "miles@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-02",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "nora@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-01",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "owen@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-27",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "piper@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-03",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "quinn@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-31",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "ravi@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-02",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "sara@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-30",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "tyler@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-01",
+            "disabled": false,
+            "disabled_date": null
+          }
+        ],
+        "at": "2026-11-04T20:25:16"
+      }
+    ],
+    "audit_date": "2026-11-04",
+    "checked_at": "2026-11-04T20:25:17",
+    "sample": true
+  },
+  {
+    "id": "leavers",
+    "name": "Leavers' accounts disabled within 24 hours of leaving",
+    "iso": "A.6.5, A.5.18",
+    "gdpr": "-",
+    "verdict": "FAIL",
+    "summary": "George left on 15 September but his account is still active and was used on 1 October.",
+    "evidence": [
+      "George Hall left 2026-09-15: account still enabled; signed in on 2026-10-01 after leaving"
+    ],
+    "fixes": [
+      "Disable george@acme.example.com now and review what he accessed after 2026-09-15",
+      "Connect HR leavers to automatic account disabling"
+    ],
+    "red": "**Violations found:**\n\n- George Hall left 2026-09-15: account still enabled; signed in on 2026-10-01 after leaving",
+    "blue": "George's account is still enabled and signed in 16 days after he left. I **concede**. Fatima was disabled on her leaving day, which meets the 24-hour rule.",
+    "agents": {
+      "red": {
+        "status": "completed",
+        "seconds": 1.6,
+        "tool_calls": 3,
+        "tools_used": [
+          "list_leavers",
+          "list_staff_accounts",
+          "read_policy"
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "turns": 4,
+        "finished_at": "2026-11-04T20:25:18",
+        "output": "**Violations found:**\n\n- George Hall left 2026-09-15: account still enabled; signed in on 2026-10-01 after leaving"
+      },
+      "blue": {
+        "status": "completed",
+        "seconds": 1.2,
+        "tool_calls": 2,
+        "tools_used": [
+          "list_leavers",
+          "list_staff_accounts"
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "turns": 3,
+        "finished_at": "2026-11-04T20:25:20",
+        "output": "George's account is still enabled and signed in 16 days after he left. I **concede**. Fatima was disabled on her leaving day, which meets the 24-hour rule."
+      },
+      "judge": {
+        "status": "completed",
+        "seconds": 0.4,
+        "tool_calls": 0,
+        "tools_used": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "turns": 1,
+        "finished_at": "2026-11-04T20:25:20",
+        "output": "{\n  \"verdict\": \"FAIL\",\n  \"summary\": \"George left on 15 September but his account is still active and was used on 1 October.\",\n  \"evidence\": [\n    \"George Hall left 2026-09-15: account still enabled; signed in on 2026-10-01 after leaving\"\n  ],\n  \"fixes\": [\n    \"Disable george@acme.example.com now and review what he accessed after 2026-09-15\",\n    \"Connect HR leavers to automatic account disabling\"\n  ]\n}"
+      }
+    },
+    "tool_log": [
+      {
+        "agent": "red",
+        "tool": "read_policy",
+        "input": {},
+        "output": "# AcmeCorp Privacy and Security Policy\n\n1. Deletion: when a customer asks to be deleted, we remove their data from ALL systems within 30 days.\n2. Logs: we never write customer emails, phone numbers or card numbers into application logs.\n3. Retention: we delete customer data 2 years after an account is closed.\n4. Admins: every admin account must use multi-factor authentication (MFA).\n5. Leavers: staff accounts are disabled within 24 hours of someone leaving.\n",
+        "at": "2026-11-04T20:25:17"
+      },
+      {
+        "agent": "red",
+        "tool": "list_leavers",
+        "input": {},
+        "output": [
+          {
+            "email": "fatima@acme.example.com",
+            "name": "Fatima Ali",
+            "left_on": "2026-10-15"
+          },
+          {
+            "email": "george@acme.example.com",
+            "name": "George Hall",
+            "left_on": "2026-09-15"
+          }
+        ],
+        "at": "2026-11-04T20:25:18"
+      },
+      {
+        "agent": "red",
+        "tool": "list_staff_accounts",
+        "input": {},
+        "output": [
+          {
+            "email": "amy@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-03",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "ben@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": false,
+            "last_sign_in": "2026-11-02",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "chloe@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": false,
+            "last_sign_in": "2026-11-01",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "daniel@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-03",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "eric@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-29",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "fatima@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-14",
+            "disabled": true,
+            "disabled_date": "2026-10-15"
+          },
+          {
+            "email": "george@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-01",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "hana@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-02",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "isaac@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-01",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "julia@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-30",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "kai@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-03",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "lena@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-28",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "miles@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-02",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "nora@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-01",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "owen@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-27",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "piper@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-03",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "quinn@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-31",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "ravi@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-02",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "sara@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-30",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "tyler@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-01",
+            "disabled": false,
+            "disabled_date": null
+          }
+        ],
+        "at": "2026-11-04T20:25:18"
+      },
+      {
+        "agent": "blue",
+        "tool": "list_leavers",
+        "input": {},
+        "output": [
+          {
+            "email": "fatima@acme.example.com",
+            "name": "Fatima Ali",
+            "left_on": "2026-10-15"
+          },
+          {
+            "email": "george@acme.example.com",
+            "name": "George Hall",
+            "left_on": "2026-09-15"
+          }
+        ],
+        "at": "2026-11-04T20:25:19"
+      },
+      {
+        "agent": "blue",
+        "tool": "list_staff_accounts",
+        "input": {},
+        "output": [
+          {
+            "email": "amy@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-03",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "ben@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": false,
+            "last_sign_in": "2026-11-02",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "chloe@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": false,
+            "last_sign_in": "2026-11-01",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "daniel@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-03",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "eric@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-29",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "fatima@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-14",
+            "disabled": true,
+            "disabled_date": "2026-10-15"
+          },
+          {
+            "email": "george@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-01",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "hana@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-02",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "isaac@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-01",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "julia@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-30",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "kai@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-03",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "lena@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-28",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "miles@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-02",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "nora@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-01",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "owen@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-27",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "piper@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-03",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "quinn@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-31",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "ravi@acme.example.com",
+            "role": "admin",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-02",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "sara@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-10-30",
+            "disabled": false,
+            "disabled_date": null
+          },
+          {
+            "email": "tyler@acme.example.com",
+            "role": "staff",
+            "mfa_enabled": true,
+            "last_sign_in": "2026-11-01",
+            "disabled": false,
+            "disabled_date": null
+          }
+        ],
+        "at": "2026-11-04T20:25:19"
+      }
+    ],
+    "audit_date": "2026-11-04",
+    "checked_at": "2026-11-04T20:25:20",
+    "sample": true
+  }
+]

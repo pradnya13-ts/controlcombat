@@ -1,0 +1,50 @@
+[
+  {
+    "id": "u_101",
+    "name": "Tom Reed",
+    "email": "tom.reed@example.com",
+    "status": "active"
+  },
+  {
+    "id": "u_103",
+    "name": "Marcus Chen",
+    "email": "marcus.chen@example.com",
+    "status": "closed"
+  },
+  {
+    "id": "u_201",
+    "name": "Sarah Lin",
+    "email": "sarah.lin@example.com",
+    "status": "closed"
+  },
+  {
+    "id": "u_106",
+    "name": "Nina Patel",
+    "email": "nina.patel@example.com",
+    "status": "active"
+  },
+  {
+    "id": "u_112",
+    "name": "Sofia Rossi",
+    "email": "sofia.rossi@example.com",
+    "status": "closed"
+  },
+  {
+    "id": "u_114",
+    "name": "Maya Singh",
+    "email": "maya.singh@example.com",
+    "status": "active"
+  },
+  {
+    "id": "u_117",
+    "name": "Theo Campbell",
+    "email": "theo.campbell@example.com",
+    "status": "active"
+  },
+  {
+    "id": "u_120",
+    "name": "Ruby Foster",
+    "email": "ruby.foster@example.com",
+    "status": "closed"
+  }
+]

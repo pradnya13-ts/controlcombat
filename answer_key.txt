@@ -1,0 +1,28 @@
+CONTROL COMBAT — ANSWER KEY (FICTIONAL TEST DATA)
+
+1. CUSTOMER RETENTION
+- Marcus Chen (u_103): closed 2022-03-14; older than two years as of 2026-11-04.
+- David Kim (u_105): closed 2023-08-21; older than two years.
+- Oliver Grant (u_107): closed 2024-01-09; older than two years.
+- Recent closures Leo Martinez (u_109), Sofia Rossi (u_112), Ruby Foster (u_120) are not stale-closure findings.
+
+2. DELETION REQUEST RECONCILIATION
+- Sarah Lin (u_201): request completed 2026-09-12; absent from users.json but still present in analytics.json and backup_2026_10.json. FAIL.
+- Michael Ford (u_202): completed 2026-10-05; absent from users.json, analytics.json, and backup_2026_10.json. PASS.
+
+3. LOG DATA MINIMISATION
+- app.log contains two customer email exposures:
+  - 2026-10-26 10:08:57 sending receipt to tom.reed@example.com
+  - 2026-10-29 09:02:14 sending password reset to priya.shah@example.com
+- Other log lines use customer IDs or non-customer operational identifiers.
+
+4. ADMIN MFA POLICY
+- Ben Carter (ben@acme.example.com): role=admin, mfa_enabled=false. FAIL.
+- Chloe Davis (chloe@acme.example.com): role=staff, mfa_enabled=false. Not a violation under the stated admin-only MFA policy.
+
+5. HR LEAVER ACCESS
+- George Hall (george@acme.example.com): left 2026-09-15; account remains disabled=false and last_sign_in=2026-10-01 (after leaving). FAIL.
+- Fatima Ali (fatima@acme.example.com): left 2026-10-15; disabled=true. PASS.
+
+Expected headline: 3 stale closed customers, 1 deletion residue, 2 log PII exposures,
+1 admin MFA violation, 1 leaver account still enabled and used after departure.

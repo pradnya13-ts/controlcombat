@@ -1,0 +1,162 @@
+[
+  {
+    "email": "amy@acme.example.com",
+    "role": "admin",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-11-03",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "ben@acme.example.com",
+    "role": "admin",
+    "mfa_enabled": false,
+    "last_sign_in": "2026-11-02",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "chloe@acme.example.com",
+    "role": "staff",
+    "mfa_enabled": false,
+    "last_sign_in": "2026-11-01",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "daniel@acme.example.com",
+    "role": "staff",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-11-03",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "eric@acme.example.com",
+    "role": "staff",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-10-29",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "fatima@acme.example.com",
+    "role": "staff",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-10-14",
+    "disabled": true,
+    "disabled_date": "2026-10-15"
+  },
+  {
+    "email": "george@acme.example.com",
+    "role": "staff",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-10-01",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "hana@acme.example.com",
+    "role": "admin",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-11-02",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "isaac@acme.example.com",
+    "role": "staff",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-11-01",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "julia@acme.example.com",
+    "role": "staff",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-10-30",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "kai@acme.example.com",
+    "role": "staff",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-11-03",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "lena@acme.example.com",
+    "role": "staff",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-10-28",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "miles@acme.example.com",
+    "role": "admin",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-11-02",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "nora@acme.example.com",
+    "role": "staff",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-11-01",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "owen@acme.example.com",
+    "role": "staff",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-10-27",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "piper@acme.example.com",
+    "role": "staff",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-11-03",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "quinn@acme.example.com",
+    "role": "staff",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-10-31",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "ravi@acme.example.com",
+    "role": "admin",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-11-02",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "sara@acme.example.com",
+    "role": "staff",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-10-30",
+    "disabled": false,
+    "disabled_date": null
+  },
+  {
+    "email": "tyler@acme.example.com",
+    "role": "staff",
+    "mfa_enabled": true,
+    "last_sign_in": "2026-11-01",
+    "disabled": false,
+    "disabled_date": null
+  }
+]

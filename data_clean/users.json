@@ -1,0 +1,142 @@
+[
+  {
+    "id": "u_101",
+    "name": "Tom Reed",
+    "email": "tom.reed@example.com",
+    "status": "active",
+    "closed_date": ""
+  },
+  {
+    "id": "u_102",
+    "name": "Priya Shah",
+    "email": "priya.shah@example.com",
+    "status": "active",
+    "closed_date": ""
+  },
+  {
+    "id": "u_103",
+    "name": "Marcus Chen",
+    "email": "marcus.chen@example.com",
+    "status": "closed",
+    "closed_date": "2022-03-14"
+  },
+  {
+    "id": "u_104",
+    "name": "Elena Brooks",
+    "email": "elena.brooks@example.com",
+    "status": "active",
+    "closed_date": ""
+  },
+  {
+    "id": "u_105",
+    "name": "David Kim",
+    "email": "david.kim@example.com",
+    "status": "closed",
+    "closed_date": "2023-08-21"
+  },
+  {
+    "id": "u_106",
+    "name": "Nina Patel",
+    "email": "nina.patel@example.com",
+    "status": "active",
+    "closed_date": ""
+  },
+  {
+    "id": "u_107",
+    "name": "Oliver Grant",
+    "email": "oliver.grant@example.com",
+    "status": "closed",
+    "closed_date": "2024-01-09"
+  },
+  {
+    "id": "u_108",
+    "name": "Grace Turner",
+    "email": "grace.turner@example.com",
+    "status": "active",
+    "closed_date": ""
+  },
+  {
+    "id": "u_109",
+    "name": "Leo Martinez",
+    "email": "leo.martinez@example.com",
+    "status": "closed",
+    "closed_date": "2026-08-17"
+  },
+  {
+    "id": "u_110",
+    "name": "Amara Okafor",
+    "email": "amara.okafor@example.com",
+    "status": "active",
+    "closed_date": ""
+  },
+  {
+    "id": "u_111",
+    "name": "Jack Wilson",
+    "email": "jack.wilson@example.com",
+    "status": "active",
+    "closed_date": ""
+  },
+  {
+    "id": "u_112",
+    "name": "Sofia Rossi",
+    "email": "sofia.rossi@example.com",
+    "status": "closed",
+    "closed_date": "2026-10-02"
+  },
+  {
+    "id": "u_113",
+    "name": "Ethan Price",
+    "email": "ethan.price@example.com",
+    "status": "active",
+    "closed_date": ""
+  },
+  {
+    "id": "u_114",
+    "name": "Maya Singh",
+    "email": "maya.singh@example.com",
+    "status": "active",
+    "closed_date": ""
+  },
+  {
+    "id": "u_115",
+    "name": "Noah Bennett",
+    "email": "noah.bennett@example.com",
+    "status": "active",
+    "closed_date": ""
+  },
+  {
+    "id": "u_116",
+    "name": "Isla Morgan",
+    "email": "isla.morgan@example.com",
+    "status": "active",
+    "closed_date": ""
+  },
+  {
+    "id": "u_117",
+    "name": "Theo Campbell",
+    "email": "theo.campbell@example.com",
+    "status": "active",
+    "closed_date": ""
+  },
+  {
+    "id": "u_118",
+    "name": "Zara Ahmed",
+    "email": "zara.ahmed@example.com",
+    "status": "active",
+    "closed_date": ""
+  },
+  {
+    "id": "u_119",
+    "name": "Lucas Evans",
+    "email": "lucas.evans@example.com",
+    "status": "active",
+    "closed_date": ""
+  },
+  {
+    "id": "u_120",
+    "name": "Ruby Foster",
+    "email": "ruby.foster@example.com",
+    "status": "closed",
+    "closed_date": "2026-10-28"
+  }
+]

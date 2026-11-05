@@ -1,0 +1,58 @@
+[
+  {
+    "id": "u_101",
+    "name": "Tom Reed",
+    "email": "tom.reed@example.com",
+    "orders": 12,
+    "segment": "loyal"
+  },
+  {
+    "id": "u_104",
+    "name": "Elena Brooks",
+    "email": "elena.brooks@example.com",
+    "orders": 4,
+    "segment": "regular"
+  },
+  {
+    "id": "u_201",
+    "name": "Sarah Lin",
+    "email": "sarah.lin@example.com",
+    "orders": 7,
+    "segment": "at_risk"
+  },
+  {
+    "id": "u_108",
+    "name": "Grace Turner",
+    "email": "grace.turner@example.com",
+    "orders": 2,
+    "segment": "new"
+  },
+  {
+    "id": "u_110",
+    "name": "Amara Okafor",
+    "email": "amara.okafor@example.com",
+    "orders": 9,
+    "segment": "loyal"
+  },
+  {
+    "id": "u_115",
+    "name": "Noah Bennett",
+    "email": "noah.bennett@example.com",
+    "orders": 3,
+    "segment": "new"
+  },
+  {
+    "id": "u_118",
+    "name": "Zara Ahmed",
+    "email": "zara.ahmed@example.com",
+    "orders": 6,
+    "segment": "regular"
+  },
+  {
+    "id": "u_119",
+    "name": "Lucas Evans",
+    "email": "lucas.evans@example.com",
+    "orders": 1,
+    "segment": "new"
+  }
+]

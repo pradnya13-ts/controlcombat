@@ -1,0 +1,12 @@
+[
+  {
+    "email": "fatima@acme.example.com",
+    "name": "Fatima Ali",
+    "left_on": "2026-10-15"
+  },
+  {
+    "email": "george@acme.example.com",
+    "name": "George Hall",
+    "left_on": "2026-09-15"
+  }
+]
